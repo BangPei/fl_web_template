@@ -18,7 +18,7 @@ class _MainLayoutState extends State<MainLayout> {
     return Scaffold(
       backgroundColor: const Color.fromARGB(255, 241, 241, 241),
       body: Padding(
-        padding: const EdgeInsets.all(5.0),
+        padding: const EdgeInsets.only(left: 5.0, right: 5, top: 5),
         child: Row(
           children: [
             Visibility(
@@ -29,6 +29,7 @@ class _MainLayoutState extends State<MainLayout> {
                 child: SideBar(
                   title: "SSMart10",
                   width: Responsive.sidebarWidth,
+                  onTapLogo: () {},
                 ),
               ),
             ),
@@ -38,11 +39,14 @@ class _MainLayoutState extends State<MainLayout> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    Navbar(onMenuClick: () {
-                      setState(() {
-                        Responsive.sidebarClick(size);
-                      });
-                    }),
+                    Navbar(
+                      username: "Administrator",
+                      onMenuClick: () {
+                        setState(() {
+                          Responsive.sidebarClick(size);
+                        });
+                      },
+                    ),
                   ],
                 ),
               ),

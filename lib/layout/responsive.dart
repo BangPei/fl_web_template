@@ -5,7 +5,7 @@ class Responsive {
   static const double medium = 768;
   static const double large = 992;
   static const double extraLarge = 1200;
-  static double sidebarWidth = 280;
+  static double sidebarWidth = 250;
   static bool sidebarOpen = true;
   static double _screen = 0;
 
@@ -14,7 +14,7 @@ class Responsive {
       if (sc <= large) {
         sidebarWidth = 0;
       } else {
-        sidebarWidth = 280;
+        sidebarWidth = 250;
       }
       sidebarOpen = (sc < small) ? false : true;
       _screen = sc;
@@ -22,6 +22,6 @@ class Responsive {
   }
 
   static sidebarClick(double sc) {
-    sidebarWidth = sidebarWidth == 280 ? 0 : 280;
+    sidebarWidth = sidebarWidth == 250 ? 0 : 250;
   }
 }
