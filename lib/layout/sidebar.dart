@@ -40,19 +40,19 @@ class SideBar extends StatelessWidget {
           ),
         ],
       ),
-      child: Column(
-        children: [
-          Header(
-            parentWidth: width,
-            title: title,
-            headerColor: headerColor,
-            logo: logo,
-            onTapLogo: onTapLogo,
-          ),
-          const SizedBox(height: 50),
-          Visibility(
-            visible: width > 0 ? true : false,
-            child: ListTile(
+      child: Visibility(
+        visible: width > 0 ? true : false,
+        child: Column(
+          children: [
+            Header(
+              parentWidth: width,
+              title: title,
+              headerColor: headerColor,
+              logo: logo,
+              onTapLogo: onTapLogo,
+            ),
+            const SizedBox(height: 50),
+            ListTile(
               onTap: () {},
               leading: Icon(
                 FontAwesomeIcons.gauge,
@@ -67,10 +67,7 @@ class SideBar extends StatelessWidget {
                 ),
               ),
             ),
-          ),
-          Visibility(
-            visible: width > 0 ? true : false,
-            child: ListTile(
+            ListTile(
               onTap: () {},
               leading: Icon(
                 FontAwesomeIcons.circleDot,
@@ -84,9 +81,9 @@ class SideBar extends StatelessWidget {
                   color: MainColor.textWhite,
                 ),
               ),
-            ),
-          )
-        ],
+            )
+          ],
+        ),
       ),
     );
   }
@@ -109,37 +106,41 @@ class Header extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Visibility(
-      visible: parentWidth > 0 ? true : false,
-      child: Container(
-        height: MainSize.navbar,
-        decoration: BoxDecoration(
-          color: headerColor,
-          border: Border(
-            bottom: BorderSide(
-              width: 0.5,
-              color: Colors.white.withOpacity(0.7),
-            ),
-          ),
-          borderRadius: const BorderRadius.only(
-            topLeft: Radius.circular(5),
-            topRight: Radius.circular(5),
+    return Container(
+      height: MainSize.navbar,
+      decoration: BoxDecoration(
+        color: headerColor,
+        border: Border(
+          bottom: BorderSide(
+            width: 0.5,
+            color: Colors.white.withOpacity(0.7),
           ),
         ),
-        child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 5.0),
-          child: ListTile(
-            onTap: onTapLogo,
-            leading: logo ?? const FlutterLogo(size: 40),
-            title: Text(
-              title.toUpperCase(),
-              style: const TextStyle(
-                color: MainColor.textWhite,
-                fontWeight: FontWeight.w700,
-                fontSize: 16,
+        borderRadius: const BorderRadius.only(
+          topLeft: Radius.circular(5),
+          topRight: Radius.circular(5),
+        ),
+      ),
+      child: Padding(
+        padding: const EdgeInsets.all(5.0),
+        child: Row(
+          children: [
+            logo ??
+                const FlutterLogo(
+                  size: 40,
+                ),
+            const SizedBox(width: 10),
+            Expanded(
+              child: Text(
+                title.toUpperCase(),
+                style: const TextStyle(
+                  color: MainColor.textWhite,
+                  fontWeight: FontWeight.w700,
+                  fontSize: 16,
+                ),
               ),
             ),
-          ),
+          ],
         ),
       ),
     );
