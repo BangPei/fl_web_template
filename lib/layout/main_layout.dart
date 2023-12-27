@@ -21,17 +21,9 @@ class _MainLayoutState extends State<MainLayout> {
         padding: const EdgeInsets.only(left: 5.0, right: 5, top: 5),
         child: Row(
           children: [
-            Visibility(
-              visible: Responsive.sidebarOpen,
-              child: AnimatedContainer(
-                width: Responsive.sidebarWidth,
-                duration: const Duration(milliseconds: 200),
-                child: SideBar(
-                  title: "SSMart10",
-                  width: Responsive.sidebarWidth,
-                  onTapLogo: () {},
-                ),
-              ),
+            SideBar(
+              title: "SSMart10",
+              onTapLogo: () {},
             ),
             Expanded(
               child: Padding(
