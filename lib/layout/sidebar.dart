@@ -4,16 +4,16 @@ import 'package:fl_web_template/layout/responsive.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-class SideBar extends StatelessWidget {
+class SideBar extends StatefulWidget {
   final String title;
-  final Color? sideBarColor;
+  final Color? backgroundColor;
   final Color? headerColor;
   final Widget? logo;
 
   final GestureTapCallback? onTapLogo;
   const SideBar({
     super.key,
-    this.sideBarColor,
+    this.backgroundColor = MainColor.black,
     this.headerColor,
     this.logo,
     required this.title,
@@ -21,42 +21,47 @@ class SideBar extends StatelessWidget {
   });
 
   @override
+  State<SideBar> createState() => _SideBarState();
+}
+
+class _SideBarState extends State<SideBar> {
+  bool _expand = false;
+  @override
   Widget build(BuildContext context) {
     double scale = Responsive.sidebarWidth > 150 ? 1 : 0;
-    return Visibility(
-      visible: Responsive.sidebarOpen,
-      child: AnimatedContainer(
-        width: Responsive.sidebarWidth,
-        height: double.infinity,
-        duration: const Duration(milliseconds: 200),
-        decoration: BoxDecoration(
-          color: sideBarColor ?? MainColor.black,
-          borderRadius: const BorderRadius.only(
-            topLeft: Radius.circular(5),
-            topRight: Radius.circular(5),
-          ),
-          boxShadow: const [
-            BoxShadow(
-              color: Color.fromARGB(255, 223, 223, 223),
-              spreadRadius: 0.2,
-              blurRadius: 7,
-              offset: Offset(1, 0),
-            ),
-          ],
+    return AnimatedContainer(
+      width: Responsive.sidebarWidth,
+      height: double.infinity,
+      duration: const Duration(milliseconds: 200),
+      decoration: BoxDecoration(
+        color: widget.backgroundColor,
+        borderRadius: const BorderRadius.only(
+          topLeft: Radius.circular(5),
+          topRight: Radius.circular(5),
         ),
-        child: Column(
-          children: [
-            Header(
-              title: title,
-              headerColor: headerColor,
-              logo: logo,
-              onTapLogo: onTapLogo,
-              scaleText: scale,
-            ),
-            const SizedBox(height: 50),
-            Visibility(
-              visible: Responsive.sidebarWidth == 250,
-              child: ListTile(
+        boxShadow: const [
+          BoxShadow(
+            color: Color.fromARGB(255, 223, 223, 223),
+            spreadRadius: 0.2,
+            blurRadius: 7,
+            offset: Offset(1, 0),
+          ),
+        ],
+      ),
+      child: Visibility(
+        visible: Responsive.sidebarWidth == 250,
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              Header(
+                title: widget.title,
+                headerColor: widget.headerColor,
+                logo: widget.logo,
+                onTapLogo: widget.onTapLogo,
+                scaleText: scale,
+              ),
+              const SizedBox(height: 50),
+              ListTile(
                 onTap: () {},
                 // horizontalTitleGap: 0.0,
                 leading: Icon(
@@ -73,8 +78,47 @@ class SideBar extends StatelessWidget {
                   ),
                 ),
               ),
-            ),
-          ],
+              ExpansionTile(
+                onExpansionChanged: (expand) {
+                  setState(() {
+                    _expand = expand;
+                  });
+                },
+                leading: Icon(
+                  FontAwesomeIcons.itunes,
+                  color: Colors.blue[400],
+                  size: 22,
+                ),
+                // trailing: const Icon(Icons.expand_less,color: MainColor.textWhite,),
+                trailing: Icon(
+                  _expand ? Icons.arrow_drop_down : Icons.arrow_right,
+                  color: MainColor.textWhite,
+                ),
+                title: Text(
+                  "Product",
+                  textScaler: TextScaler.linear(scale),
+                  style: const TextStyle(
+                    fontSize: 13,
+                    color: MainColor.textWhite,
+                  ),
+                ),
+                children: const [
+                  ListTile(
+                    title: Text("Management Product"),
+                  ),
+                  ListTile(
+                    title: Text("Add Product"),
+                  ),
+                  ListTile(
+                    title: Text("Category"),
+                  ),
+                  ListTile(
+                    title: Text("Uom"),
+                  ),
+                ],
+              )
+            ],
+          ),
         ),
       ),
     );
