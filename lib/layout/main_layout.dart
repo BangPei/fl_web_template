@@ -14,7 +14,7 @@ class _MainLayoutState extends State<MainLayout> {
   @override
   Widget build(BuildContext context) {
     double size = MediaQuery.of(context).size.width;
-    Responsive.sidebarWithControll(size);
+    Responsive.sidebarWithControll(context, size);
     return Scaffold(
       backgroundColor: const Color.fromARGB(255, 241, 241, 241),
       body: SafeArea(
@@ -36,7 +36,7 @@ class _MainLayoutState extends State<MainLayout> {
                         username: "Administrator",
                         onMenuClick: () {
                           setState(() {
-                            Responsive.sidebarClick(size);
+                            Responsive.sidebarClick(context, size);
                           });
                         },
                       ),
